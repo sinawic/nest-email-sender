@@ -35,7 +35,6 @@ export class AdminRoomsController {
   @Post()
   post(@Body() dto: CreateRoomDto) {
     return this.adminRoomService.createRoom(dto)
-
   }
 
   @Put(':id')
