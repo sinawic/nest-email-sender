@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { JwtStrategy } from 'src/adminStrategy';
+import { JwtStrategy } from '../adminStrategy';
 import { SupporterEmailsController } from './supporterEmails.controller';
 import { SupporterEmailsService } from './supporterEmails.service';
 import { SupporterService } from './../supporter/supporter.service';

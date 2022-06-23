@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import mongoose from 'mongoose';
-import { sha1 } from 'src/helpers';
+import { sha1 } from '../helpers';
 import { AdminSupportersModels } from './adminSupporters.models';
 
 @Injectable()

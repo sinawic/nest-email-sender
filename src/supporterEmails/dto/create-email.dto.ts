@@ -3,16 +3,16 @@ import {
   IsString,
 } from 'class-validator';
 
-export class CreateRoomDto {
+export class CreateEmailDto {
   @IsString()
   @IsNotEmpty()
-  name: string;
+  to: string;
 
   @IsString()
   @IsNotEmpty()
-  email: string;
+  subject: string;
 
   @IsString()
   @IsNotEmpty()
-  website: string;
+  text: string;
 }

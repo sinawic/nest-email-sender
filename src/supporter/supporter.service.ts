@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { sha1 } from 'src/helpers';
+import { sha1 } from '../helpers';
 import { AdminSupportersModels } from '../adminSupporters/adminSupporters.models';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
