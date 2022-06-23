@@ -1,6 +1,6 @@
-const crypto = require('crypto')
-import nodemailer from 'nodemailer'
 import { unlink } from 'fs'
+const crypto = require('crypto')
+const nodemailer = require('nodemailer')
 
 interface IMailOptions {
   to: string,

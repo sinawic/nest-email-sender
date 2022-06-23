@@ -2,6 +2,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { db_connection } from './db';
+import { init } from './../mailService/mailService';
 
 db_connection()
 
@@ -15,3 +16,5 @@ async function bootstrap() {
   await app.listen(3000);
 }
 bootstrap();
+
+init()
