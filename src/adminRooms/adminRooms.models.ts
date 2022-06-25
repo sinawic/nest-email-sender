@@ -9,6 +9,6 @@ export class AdminRoomsModels {
     website: { type: String, required: true }
   }).index({ name: 1 }, { unique: true })
 
-  static Room = mongoose.model('room', AdminRoomsModels.RoomSchema)
+  Room = mongoose.model('room', AdminRoomsModels.RoomSchema)
 
 }

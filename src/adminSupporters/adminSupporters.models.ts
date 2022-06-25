@@ -10,6 +10,6 @@ export class AdminSupportersModels {
     room: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'room' }
   }).index({ username: 1 }, { unique: true })
 
-  static Supporter = mongoose.model('supporter', AdminSupportersModels.SupporterSchema)
+  Supporter = mongoose.model('supporter', AdminSupportersModels.SupporterSchema)
 
 }

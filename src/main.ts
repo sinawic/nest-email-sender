@@ -1,8 +1,9 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { db_connection } from './db';
-import { init } from './../mailService/mailService';
+import { db_connection } from './db/db';
+import { MailsService } from './mailService/mailService';
+import { SupporterEmailsModels } from './supporterEmails/supporterEmails.models';
 
 db_connection()
 
@@ -13,8 +14,9 @@ async function bootstrap() {
     new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }),
   )
 
-  await app.listen(3000);
+  await app.listen(process.env.PORT || 3000);
 }
 bootstrap();
 
-init()
+const mailsService = new MailsService(new SupporterEmailsModels)
+mailsService.init()

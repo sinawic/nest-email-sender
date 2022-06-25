@@ -13,7 +13,7 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { JwtGuard } from '../adminGuard';
+import { JwtGuard } from '../auth';
 import { SupporterEmailsService } from './supporterEmails.service';
 import { CreateEmailDto } from './dto';
 import { GetUser } from '../supporter/decorator';

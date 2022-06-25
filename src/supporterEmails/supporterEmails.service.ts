@@ -1,14 +1,13 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
+import { Injectable } from '@nestjs/common';
 import mongoose from 'mongoose';
 import { SupporterEmailsModels } from './supporterEmails.models';
 
 @Injectable()
 export class SupporterEmailsService {
-  constructor() { }
+  constructor(private emailsModels: SupporterEmailsModels) { }
 
   createEmail = async ({ to, subject, text, supporter, room }) => {
-    return await new SupporterEmailsModels.Email({
+    return await new this.emailsModels.Email({
       to, subject, text,
       date_created: new Date(),
       supporter,
@@ -17,7 +16,7 @@ export class SupporterEmailsService {
   }
 
   createAttachment = async ({ file, email }) => {
-    return await new SupporterEmailsModels.Attachment({
+    return await new this.emailsModels.Attachment({
       ...file, email: new mongoose.Types.ObjectId(email._id)
     }).save()
   }

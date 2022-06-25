@@ -11,7 +11,7 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { BasicGuard } from '../adminGuard';
+import { BasicGuard } from '../auth';
 import { AdminSupportersService } from './adminSupporters.service';
 import { CreateSupporterDto } from './dto';
 

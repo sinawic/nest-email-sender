@@ -1,20 +1,26 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { sha1 } from '../helpers';
 import { AdminSupportersModels } from '../adminSupporters/adminSupporters.models';
 import { JwtService } from '@nestjs/jwt';
-import { ConfigService } from '@nestjs/config';
+
 import mongoose from 'mongoose';
+const crypto = require('crypto')
 
 @Injectable()
 export class SupporterService {
   constructor(
     private jwt: JwtService,
-    private config: ConfigService,
+    private supportersModels: AdminSupportersModels,
   ) { }
 
+  sha1(val: string) {
+    var shasum = crypto.createHash('sha1')
+    shasum.update(val)
+    return shasum.digest('hex')
+  }
+
   getSupporterByCred = async ({ username, password, room }: { username: string, password: string, room: string }) => {
-    return await AdminSupportersModels.Supporter.findOne({
-      username, room, password: sha1(password), active: true
+    return await this.supportersModels.Supporter.findOne({
+      username, room, password: this.sha1(password), active: true
     })
   }
 
@@ -31,7 +37,7 @@ export class SupporterService {
   }
 
   async signToken({ _id, username, room }): Promise<{ access_token: string }> {
-    const secret = this.config.get('ACCESS_TOKEN_SECRET');
+    const secret = process.env.ACCESS_TOKEN_SECRET;
     const token = await this.jwt.signAsync(
       { _id, username, room },
       {
@@ -46,7 +52,7 @@ export class SupporterService {
   }
 
   getRequesterSupporter = async ({ _id, room }) => {
-    return await AdminSupportersModels.Supporter.findOne({
+    return await this.supportersModels.Supporter.findOne({
       _id: new mongoose.Types.ObjectId(_id),
       room: new mongoose.Types.ObjectId(room), active: true
     })

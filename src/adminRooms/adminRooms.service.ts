@@ -4,24 +4,25 @@ import { AdminRoomsModels } from './adminRooms.models';
 
 @Injectable()
 export class AdminRoomsService {
+  constructor(private roomModels: AdminRoomsModels) { }
 
   getRooms = async ({ page, paging }: { page: number, paging: number }) => {
-    const rooms = await AdminRoomsModels.Room.aggregate([
+    const rooms = await this.roomModels.Room.aggregate([
       { $sort: { 'date_created': -1 } },
       { $limit: (page - 1) * paging + paging },
       { $skip: (page - 1) * paging }
     ])
-    const count = await AdminRoomsModels.Room.countDocuments({})
+    const count = await this.roomModels.Room.countDocuments({})
     return { data: rooms, count }
   }
 
   getRoomDetails = async (_id: string) => {
-    return await AdminRoomsModels.Room.findOne({ _id: new mongoose.Types.ObjectId(_id) })
+    return await this.roomModels.Room.findOne({ _id: new mongoose.Types.ObjectId(_id) })
   }
 
   createRoom = async ({ name, email, website }: { name: string, email: string, website: string }) => {
     try {
-      return await new AdminRoomsModels.Room({
+      return await new this.roomModels.Room({
         name,
         email,
         website,
@@ -33,13 +34,13 @@ export class AdminRoomsService {
   }
 
   editRoom = async ({ _id, name, email, website }: { _id: string, name: string, email: string, website: string }) => {
-    return await AdminRoomsModels.Room.findOneAndUpdate({ _id: new mongoose.Types.ObjectId(_id) }, {
+    return await this.roomModels.Room.findOneAndUpdate({ _id: new mongoose.Types.ObjectId(_id) }, {
       name, email, website
     })
   }
 
   deleteRoom = async (_id: string) => {
-    return await AdminRoomsModels.Room.findOneAndDelete({ _id: new mongoose.Types.ObjectId(_id) })
+    return await this.roomModels.Room.findOneAndDelete({ _id: new mongoose.Types.ObjectId(_id) })
   }
 
 }

@@ -11,7 +11,7 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { BasicGuard } from '../adminGuard';
+import { BasicGuard } from '../auth';
 import { AdminRoomsService } from './adminRooms.service';
 import { CreateRoomDto } from './dto';
 
@@ -33,15 +33,15 @@ export class AdminRoomsController {
   }
 
   @Post()
-  post(@Body() dto: CreateRoomDto) {
-    return this.adminRoomService.createRoom(dto)
+  post(@Body() createRoomDto: CreateRoomDto) {
+    return this.adminRoomService.createRoom(createRoomDto)
   }
 
   @Put(':id')
   put(
     @Param('id') _id: string,
-    @Body() dto: CreateRoomDto) {
-    return this.adminRoomService.editRoom({ ...dto, _id })
+    @Body() createRoomDto: CreateRoomDto) {
+    return this.adminRoomService.editRoom({ ...createRoomDto, _id })
   }
 
   @Delete(':id')

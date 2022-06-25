@@ -12,7 +12,7 @@ export class SupporterEmailsModels {
     size: Number,
     email: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'email' }
   })
-  static Attachment = mongoose.model('attachment', SupporterEmailsModels.AttachmentSchema)
+  Attachment = mongoose.model('attachment', SupporterEmailsModels.AttachmentSchema)
 
 
   private static EmailSchema = new mongoose.Schema({
@@ -24,6 +24,6 @@ export class SupporterEmailsModels {
     supporter: { type: mongoose.Schema.Types.ObjectId },
     room: { type: mongoose.Schema.Types.ObjectId }
   })
-  static Email = mongoose.model('email', SupporterEmailsModels.EmailSchema)
+  Email = mongoose.model('email', SupporterEmailsModels.EmailSchema)
 
 }
