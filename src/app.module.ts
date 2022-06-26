@@ -11,7 +11,7 @@ import { MongooseModule } from '@nestjs/mongoose';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    MongooseModule.forRoot("mongodb://root:example@localhost:27017/express?authSource=admin"),
+    MongooseModule.forRoot(process.env.DB_CONNECTION_STRING),
     AdminRoomsModule,
     AdminSupportersModule,
     SupporterEmailModule,
