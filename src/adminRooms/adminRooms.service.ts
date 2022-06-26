@@ -2,7 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import mongoose from 'mongoose';
-import { Room, RoomSchema } from './schemas/';
+import { Room } from './schemas/';
 
 @Injectable()
 export class AdminRoomsService {
