@@ -1,11 +1,12 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import { InjectModel } from '@nestjs/mongoose';
 import { AppModule } from './app.module';
 import { db_connection } from './db/db';
-import { MailsService } from './mailService/mailService';
-import { SupporterEmailsModels } from './supporterEmails/supporterEmails.models';
+import { MailsService } from './supporterEmails/mail.service';
+import { Email } from './supporterEmails/schemas';
 
-db_connection()
+// db_connection()
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -17,6 +18,3 @@ async function bootstrap() {
   await app.listen(process.env.PORT || 3000);
 }
 bootstrap();
-
-const mailsService = new MailsService(new SupporterEmailsModels)
-mailsService.init()
