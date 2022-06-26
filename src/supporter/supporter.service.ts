@@ -1,15 +1,16 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { AdminSupportersModels } from '../adminSupporters/adminSupporters.models';
 import { JwtService } from '@nestjs/jwt';
+import { Supporter, SupporterSchema } from '../adminSupporters/schemas/';
 
-import mongoose from 'mongoose';
+import mongoose, { Model } from 'mongoose';
+import { InjectModel } from '@nestjs/mongoose';
 const crypto = require('crypto')
 
 @Injectable()
 export class SupporterService {
   constructor(
     private jwt: JwtService,
-    private supportersModels: AdminSupportersModels,
+    @InjectModel(Supporter.name) private supporterModel: Model<any>
   ) { }
 
   sha1(val: string) {
@@ -19,7 +20,7 @@ export class SupporterService {
   }
 
   getSupporterByCred = async ({ username, password, room }: { username: string, password: string, room: string }) => {
-    return await this.supportersModels.Supporter.findOne({
+    return await this.supporterModel.findOne({
       username, room, password: this.sha1(password), active: true
     })
   }
@@ -52,7 +53,7 @@ export class SupporterService {
   }
 
   getRequesterSupporter = async ({ _id, room }) => {
-    return await this.supportersModels.Supporter.findOne({
+    return await this.supporterModel.findOne({
       _id: new mongoose.Types.ObjectId(_id),
       room: new mongoose.Types.ObjectId(room), active: true
     })

@@ -45,7 +45,7 @@ export class SupporterEmailsController {
     })
 
     files && files.map(async (file) => {
-      await this.supporterEmailService.createAttachment({ file, email })
+      await this.supporterEmailService.createAttachment({ file, email: email._id })
     })
 
     return ({ email })

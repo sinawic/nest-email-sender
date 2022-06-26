@@ -4,12 +4,16 @@ import { SupporterEmailsController } from './supporterEmails.controller';
 import { SupporterEmailsService } from './supporterEmails.service';
 import { SupporterService } from './../supporter/supporter.service';
 import { JwtModule } from '@nestjs/jwt';
-import { AdminSupportersModels } from '../adminSupporters/adminSupporters.models';
-import { SupporterEmailsModels } from './supporterEmails.models';
+import { Supporter, SupporterSchema } from '../adminSupporters/schemas/';
+import { Attachment, AttachmentSchema, Email, EmailSchema } from './schemas';
+import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
-  imports: [JwtModule.register({})],
+  imports: [JwtModule.register({}),
+  MongooseModule.forFeature([{ name: Supporter.name, schema: SupporterSchema },
+  { name: Attachment.name, schema: AttachmentSchema },
+  { name: Email.name, schema: EmailSchema }])],
   controllers: [SupporterEmailsController],
-  providers: [SupporterEmailsModels, AdminSupportersModels, SupporterEmailsService, SupporterService, JwtStrategy]
+  providers: [SupporterEmailsService, SupporterService, JwtStrategy]
 })
 export class SupporterEmailModule { }
