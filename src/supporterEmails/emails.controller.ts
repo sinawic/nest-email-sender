@@ -6,10 +6,10 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { JwtGuard } from '../auth';
-import { SupporterEmailsService } from './supporterEmails.service';
+import { JwtGuard } from '../auth/Guard';
+import { EmailsService } from './emails.service';
 import { CreateEmailDto } from './dto';
-import { GetUser } from '../supporter/decorator';
+import { GetUser } from '../auth/decorator';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 
@@ -18,8 +18,8 @@ const path = require('path')
 
 @UseGuards(JwtGuard)
 @Controller('supporter/sendmail')
-export class SupporterEmailsController {
-  constructor(private supporterEmailService: SupporterEmailsService) { }
+export class EmailsController {
+  constructor(private emailService: EmailsService) { }
 
   @Post()
   @UseInterceptors(FilesInterceptor('files', 10, {
@@ -33,12 +33,12 @@ export class SupporterEmailsController {
 
     const { to, subject, text } = dto
 
-    const email = await this.supporterEmailService.createEmail({
+    const email = await this.emailService.createEmail({
       to, subject, text, supporter: user._id.toString(), room: user.room.toString()
     })
 
     files && files.map(async (file) => {
-      await this.supporterEmailService.createAttachment({ file, email: email._id })
+      await this.emailService.createAttachment({ file, email: email._id })
     })
 
     return ({ email })

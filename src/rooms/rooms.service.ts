@@ -2,10 +2,10 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import mongoose from 'mongoose';
-import { Room } from './schemas/';
+import { Room } from './schemas';
 
 @Injectable()
-export class AdminRoomsService {
+export class RoomsService {
   constructor(@InjectModel(Room.name) private roomModel: Model<any>) { }
 
   getRooms = async ({ page, paging }: { page: number, paging: number }) => {

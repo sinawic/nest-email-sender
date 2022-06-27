@@ -4,7 +4,7 @@ import { Model } from 'mongoose';
 import { Email, Attachment } from './schemas';
 import { MailsService } from './mail.service'
 @Injectable()
-export class SupporterEmailsService {
+export class EmailsService {
   constructor(@InjectModel(Email.name) private emailModel: Model<any>,
     @InjectModel(Attachment.name) private attachmentModel: Model<any>) {
 

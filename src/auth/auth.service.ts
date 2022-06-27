@@ -1,13 +1,13 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { Supporter, SupporterSchema } from '../adminSupporters/schemas/';
+import { Supporter } from '../supporters/schemas/';
 
 import mongoose, { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 const crypto = require('crypto')
 
 @Injectable()
-export class SupporterService {
+export class AuthService {
   constructor(
     private jwt: JwtService,
     @InjectModel(Supporter.name) private supporterModel: Model<any>

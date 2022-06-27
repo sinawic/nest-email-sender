@@ -11,42 +11,42 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { BasicGuard } from '../auth';
-import { AdminSupportersService } from './adminSupporters.service';
+import { BasicGuard } from '../auth/Guard';
+import { SupportersService } from './supporters.service';
 import { CreateSupporterDto } from './dto';
 
 @UseGuards(BasicGuard)
 @Controller('admin/supporters')
-export class AdminSupportersController {
-  constructor(private adminSupporterService: AdminSupportersService) { }
+export class SupportersController {
+  constructor(private supporterService: SupportersService) { }
 
   @Get()
   getList(
     @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
     @Query('paging', new DefaultValuePipe(16), ParseIntPipe) paging: number) {
-    return this.adminSupporterService.getSupporters({ page, paging })
+    return this.supporterService.getSupporters({ page, paging })
   }
 
   @Get(':id')
   getById(@Param('id') _id: string) {
-    return this.adminSupporterService.getSupporterDetails(_id)
+    return this.supporterService.getSupporterDetails(_id)
   }
 
   @Post()
   post(@Body() dto: CreateSupporterDto) {
-    return this.adminSupporterService.createSupporter(dto)
+    return this.supporterService.createSupporter(dto)
   }
 
   @Put(':id')
   put(
     @Param('id') _id: string,
     @Body() dto: CreateSupporterDto) {
-    return this.adminSupporterService.editSupporter({ ...dto, _id })
+    return this.supporterService.editSupporter({ ...dto, _id })
   }
 
   @Delete(':id')
   delete(@Param('id') _id: string) {
-    return this.adminSupporterService.deleteSupporter(_id)
+    return this.supporterService.deleteSupporter(_id)
   }
 
 }

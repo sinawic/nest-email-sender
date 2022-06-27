@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { AdminRoomsModule } from './adminRooms/adminRooms.module';
-import { AdminSupportersModule } from './adminSupporters/adminSupporters.module';
-import { SupporterEmailModule } from './supporterEmails/supporterEmails.module';
-import { SupporterModule } from './supporter/supporter.module';
+import { RoomsModule } from './rooms/rooms.module';
+import { SupportersModule } from './supporters/supporters.module';
+import { EmailModule } from './supporterEmails/emails.module';
+import { AuthModule } from './auth/auth.module';
 import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
@@ -12,10 +12,10 @@ import { MongooseModule } from '@nestjs/mongoose';
       isGlobal: true,
     }),
     MongooseModule.forRoot(process.env.DB_CONNECTION_STRING),
-    AdminRoomsModule,
-    AdminSupportersModule,
-    SupporterEmailModule,
-    SupporterModule
+    RoomsModule,
+    SupportersModule,
+    EmailModule,
+    AuthModule
   ],
   providers: []
 })

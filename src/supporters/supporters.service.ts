@@ -1,11 +1,11 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import mongoose, { Model } from 'mongoose';
-import { Supporter } from './schemas/';
+import { Supporter } from './schemas';
 const crypto = require('crypto')
 
 @Injectable()
-export class AdminSupportersService {
+export class SupportersService {
   constructor(@InjectModel(Supporter.name) private supporterModel: Model<any>) { }
 
   sha1(val: string) {

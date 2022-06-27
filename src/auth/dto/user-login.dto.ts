@@ -3,7 +3,7 @@ import {
   IsString,
 } from 'class-validator';
 
-export class CreateSupporterDto {
+export class CreateUserDto {
   @IsString()
   @IsNotEmpty()
   username: string;
