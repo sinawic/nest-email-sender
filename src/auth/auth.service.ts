@@ -4,7 +4,7 @@ import { Supporter } from '../supporters/schemas/';
 
 import mongoose, { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-const crypto = require('crypto')
+import { sha1 } from '../common/utils';
 
 @Injectable()
 export class AuthService {
@@ -13,15 +13,10 @@ export class AuthService {
     @InjectModel(Supporter.name) private supporterModel: Model<any>
   ) { }
 
-  sha1(val: string) {
-    var shasum = crypto.createHash('sha1')
-    shasum.update(val)
-    return shasum.digest('hex')
-  }
 
   getSupporterByCred = async ({ username, password, room }: { username: string, password: string, room: string }) => {
     return await this.supporterModel.findOne({
-      username, room, password: this.sha1(password), active: true
+      username, room, password: sha1(password), active: true
     })
   }
 

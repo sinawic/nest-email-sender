@@ -1,18 +1,13 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import mongoose, { Model } from 'mongoose';
+import { sha1 } from '../common/utils';
 import { Supporter } from './schemas';
 const crypto = require('crypto')
 
 @Injectable()
 export class SupportersService {
   constructor(@InjectModel(Supporter.name) private supporterModel: Model<any>) { }
-
-  sha1(val: string) {
-    var shasum = crypto.createHash('sha1')
-    shasum.update(val)
-    return shasum.digest('hex')
-  }
 
   getSupporters = async ({ page, paging }: { page: number, paging: number }) => {
     const supporters = await this.supporterModel.aggregate([
@@ -33,7 +28,7 @@ export class SupportersService {
     try {
       return await new this.supporterModel({
         username,
-        password: this.sha1(password),
+        password: sha1(password),
         room,
         date_created: new Date()
       }).save()
@@ -45,7 +40,7 @@ export class SupportersService {
   editSupporter = async ({ _id, username, password }: { username: string, password: string, _id: string }) => {
     return await this.supporterModel.findOneAndUpdate({ _id: new mongoose.Types.ObjectId(_id) }, {
       username,
-      password: this.sha1(password)
+      password: sha1(password)
     })
   }
 
