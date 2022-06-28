@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { RoomsModule } from './rooms/rooms.module';
 import { SupportersModule } from './supporters/supporters.module';
-import { EmailModule } from './supporterEmails/emails.module';
+import { EmailModule } from './emails/emails.module';
 import { AuthModule } from './auth/auth.module';
 import { MongooseModule } from '@nestjs/mongoose';
 
