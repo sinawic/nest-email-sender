@@ -8,7 +8,7 @@ import {
 } from '@nestjs/common';
 import { JwtGuard } from '../auth/Guard';
 import { EmailsService } from './emails.service';
-import { CreateEmailDto } from './dto';
+import { CreateAttachmentDto, CreateEmailDto, SaveFileDto } from './dto';
 import { GetUser } from '../auth/decorator';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
@@ -29,16 +29,14 @@ export class EmailsController {
         cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname)),
     })
   }))
-  async post(@Body() dto: CreateEmailDto, @GetUser() user, @UploadedFiles() files: Array<Express.Multer.File>) {
-
-    const { to, subject, text } = dto
+  async post(@Body() createEmailDto: CreateEmailDto, @GetUser() user, @UploadedFiles() files: Array<CreateAttachmentDto>) {
 
     const email = await this.emailService.createEmail({
-      to, subject, text, supporter: user._id.toString(), room: user.room.toString()
+      ...createEmailDto, supporter: user._id, room: user.room
     })
 
     files && files.map(async (file) => {
-      await this.emailService.createAttachment({ file, email: email._id })
+      await this.emailService.createAttachment({ ...file, email: email._id })
     })
 
     return ({ email })

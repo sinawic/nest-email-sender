@@ -5,6 +5,7 @@ import { Supporter } from '../supporters/schemas/';
 import mongoose, { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { sha1 } from '../common/utils';
+import { CreateUserDto } from './dto';
 
 @Injectable()
 export class AuthService {
@@ -20,9 +21,9 @@ export class AuthService {
     })
   }
 
-  validateLogin = async ({ username, room, password }) => {
+  validateLogin = async (createUserDto: CreateUserDto) => {
     try {
-      const supporter = await this.getSupporterByCred({ username, room, password })
+      const supporter = await this.getSupporterByCred(createUserDto)
       if (!supporter)
         throw new HttpException('Invalid username or password or wrong room', HttpStatus.BAD_REQUEST)
 
@@ -49,8 +50,8 @@ export class AuthService {
 
   getRequesterSupporter = async ({ _id, room }) => {
     return await this.supporterModel.findOne({
-      _id: new mongoose.Types.ObjectId(_id),
-      room: new mongoose.Types.ObjectId(room), active: true
+      _id,
+      room, active: true
     })
   }
 

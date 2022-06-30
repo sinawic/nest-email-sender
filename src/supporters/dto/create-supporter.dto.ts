@@ -16,3 +16,17 @@ export class CreateSupporterDto {
   @IsNotEmpty()
   room: string;
 }
+
+export class EditSupporterDto {
+  @IsString()
+  @IsNotEmpty()
+  username: string;
+
+  @IsString()
+  @IsNotEmpty()
+  password: string;
+
+  @IsString()
+  @IsNotEmpty()
+  _id: string;
+}

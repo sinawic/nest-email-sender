@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { SaveEmailDto, SaveFileDto } from './dto';
 import { Email, Attachment } from './schemas';
 const nodemailer = require('nodemailer')
 
@@ -20,19 +21,15 @@ export class EmailsService {
     this.init()
   }
 
-  createEmail = async ({ to, subject, text, supporter, room }) => {
+  createEmail = async (dto: SaveEmailDto) => {
     return await new this.emailModel({
-      to, subject, text,
+      ...dto,
       date_created: new Date(),
-      supporter,
-      room
     }).save()
   }
 
-  createAttachment = async ({ file, email }) => {
-    return await new this.attachmentModel({
-      ...file, email
-    }).save()
+  createAttachment = async (saveFileDto: SaveFileDto) => {
+    return await new this.attachmentModel(saveFileDto).save()
   }
 
 

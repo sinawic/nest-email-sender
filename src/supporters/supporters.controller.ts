@@ -33,15 +33,15 @@ export class SupportersController {
   }
 
   @Post()
-  post(@Body() dto: CreateSupporterDto) {
-    return this.supporterService.createSupporter(dto)
+  post(@Body() createSupporterDto: CreateSupporterDto) {
+    return this.supporterService.createSupporter(createSupporterDto)
   }
 
   @Put(':id')
   put(
     @Param('id') _id: string,
-    @Body() dto: CreateSupporterDto) {
-    return this.supporterService.editSupporter({ ...dto, _id })
+    @Body() createSupporterDto: CreateSupporterDto) {
+    return this.supporterService.editSupporter({ ...createSupporterDto, _id })
   }
 
   @Delete(':id')
