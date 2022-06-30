@@ -28,7 +28,7 @@ export class AuthService {
 
       return this.signToken(supporter);
     } catch (error: any) {
-      throw new HttpException({ error: error.toString() }, HttpStatus.BAD_REQUEST)
+      throw new HttpException({ error: error.message }, HttpStatus.BAD_REQUEST)
     }
   }
 

@@ -31,7 +31,7 @@ export class RoomsService {
         date_created: new Date()
       }).save()
     } catch (error) {
-      throw new HttpException({ error: error.toString() }, HttpStatus.BAD_REQUEST)
+      throw new HttpException({ error: error.message }, HttpStatus.BAD_REQUEST)
     }
   }
 

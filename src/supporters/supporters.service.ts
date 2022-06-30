@@ -2,6 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import mongoose, { Model } from 'mongoose';
 import { sha1 } from '../common/utils';
+import { CreateSupporterDto } from './dto';
 import { Supporter } from './schemas';
 const crypto = require('crypto')
 
@@ -24,16 +25,15 @@ export class SupportersService {
     return await this.supporterModel.findOne({ _id: new mongoose.Types.ObjectId(_id) })
   }
 
-  createSupporter = async ({ username, password, room }: { username: string, password: string, room: string }) => {
+  createSupporter = async (dto: CreateSupporterDto) => {
     try {
       return await new this.supporterModel({
-        username,
-        password: sha1(password),
-        room,
+        ...dto,
+        password: sha1(dto.password),
         date_created: new Date()
       }).save()
     } catch (error) {
-      throw new HttpException({ error: error.toString() }, HttpStatus.BAD_REQUEST)
+      throw new HttpException({ error: error.message }, HttpStatus.BAD_REQUEST)
     }
   }
 
