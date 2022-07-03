@@ -4,6 +4,8 @@ import {
 } from 'class-validator';
 import { IsObjectId } from 'class-validator-mongo-object-id'
 import mongoose from 'mongoose';
+import { IdDto } from 'src/common/dto';
+import { Type } from 'class-transformer';
 
 export class CreateEmailDto {
   @IsString()
@@ -32,11 +34,9 @@ export class SaveEmailDto {
   @IsNotEmpty()
   text: string;
 
-  @IsObjectId()
-  @IsNotEmpty()
-  supporter: mongoose.Types.ObjectId;
+  @Type(() => IdDto)
+  supporter: IdDto;
 
-  @IsObjectId()
-  @IsNotEmpty()
-  room: mongoose.Types.ObjectId;
+  @Type(() => IdDto)
+  room: IdDto;
 }

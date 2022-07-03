@@ -2,8 +2,9 @@ import {
   IsNotEmpty,
   IsString,
 } from 'class-validator';
-import { IsObjectId } from 'class-validator-mongo-object-id';
-import mongoose from 'mongoose';
+import { Type } from 'class-transformer';
+import { ObjectId } from 'mongodb';
+import { IdDto } from 'src/common/dto';
 
 export class CreateRoomDto {
   @IsString()
@@ -32,8 +33,7 @@ export class EditRoomDto {
   @IsNotEmpty()
   website: string;
 
-  @IsString()
-  @IsNotEmpty()
-  _id: string;
+  @Type(() => IdDto)
+  _id: IdDto;
 }
 

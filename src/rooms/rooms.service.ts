@@ -2,7 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { Room } from './schemas';
-import { PaginationDto } from '../common/dto';
+import { IdDto, PaginationDto } from '../common/dto';
 import { CreateRoomDto, EditRoomDto } from './dto/create-room.dto';
 
 @Injectable()
@@ -22,8 +22,12 @@ export class RoomsService {
     }
   }
 
-  getRoomDetails = async (_id: string) => {
-    return await this.roomModel.findOne({ _id })
+  getRoomDetails = async (_id: IdDto) => {
+    try {
+      return await this.roomModel.findOne({ _id })
+    } catch (error) {
+      throw new HttpException({ error: error.message }, HttpStatus.BAD_REQUEST)
+    }
   }
 
   createRoom = async (createRoomDto: CreateRoomDto) => {
@@ -38,11 +42,19 @@ export class RoomsService {
   }
 
   editRoom = async (editRoomDto: EditRoomDto) => {
-    return await this.roomModel.findOneAndUpdate({ _id: editRoomDto._id }, editRoomDto)
+    try {
+      return await this.roomModel.findOneAndUpdate({ _id: editRoomDto._id }, editRoomDto)
+    } catch (error) {
+      throw new HttpException({ error: error.message }, HttpStatus.BAD_REQUEST)
+    }
   }
 
-  deleteRoom = async (_id: string) => {
-    return await this.roomModel.findOneAndDelete({ _id })
+  deleteRoom = async (_id: IdDto) => {
+    try {
+      return await this.roomModel.findOneAndDelete({ _id })
+    } catch (error) {
+      throw new HttpException({ error: error.message }, HttpStatus.BAD_REQUEST)
+    }
   }
 
 }

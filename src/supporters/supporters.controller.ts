@@ -14,6 +14,7 @@ import {
 import { BasicGuard } from '../auth/Guard';
 import { SupportersService } from './supporters.service';
 import { CreateSupporterDto } from './dto';
+import { IdDto } from 'src/common/dto';
 
 @UseGuards(BasicGuard)
 @Controller('admin/supporters')
@@ -27,8 +28,8 @@ export class SupportersController {
     return this.supporterService.getSupporters({ page, paging })
   }
 
-  @Get(':id')
-  getById(@Param('id') _id: string) {
+  @Get(':_id')
+  getById(@Param('_id') _id: IdDto) {
     return this.supporterService.getSupporterDetails(_id)
   }
 
@@ -37,15 +38,15 @@ export class SupportersController {
     return this.supporterService.createSupporter(createSupporterDto)
   }
 
-  @Put(':id')
+  @Put(':_id')
   put(
-    @Param('id') _id: string,
+    @Param('_id') _id: IdDto,
     @Body() createSupporterDto: CreateSupporterDto) {
     return this.supporterService.editSupporter({ ...createSupporterDto, _id })
   }
 
-  @Delete(':id')
-  delete(@Param('id') _id: string) {
+  @Delete(':_id')
+  delete(@Param('_id') _id: IdDto) {
     return this.supporterService.deleteSupporter(_id)
   }
 

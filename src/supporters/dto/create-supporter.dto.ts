@@ -2,6 +2,8 @@ import {
   IsNotEmpty,
   IsString,
 } from 'class-validator';
+import { IdDto } from 'src/common/dto';
+import { Type } from 'class-transformer';
 
 export class CreateSupporterDto {
   @IsString()
@@ -26,7 +28,6 @@ export class EditSupporterDto {
   @IsNotEmpty()
   password: string;
 
-  @IsString()
-  @IsNotEmpty()
-  _id: string;
+  @Type(() => IdDto)
+  _id: IdDto;
 }

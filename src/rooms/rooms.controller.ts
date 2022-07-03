@@ -14,6 +14,7 @@ import {
 import { BasicGuard } from '../auth/Guard';
 import { RoomsService } from './rooms.service';
 import { CreateRoomDto } from './dto';
+import { IdDto } from 'src/common/dto';
 
 @UseGuards(BasicGuard)
 @Controller('admin/rooms')
@@ -27,8 +28,8 @@ export class RoomsController {
     return this.roomService.getRooms({ page, paging })
   }
 
-  @Get(':id')
-  getById(@Param('id') _id: string) {
+  @Get(':_id')
+  getById(@Param('_id') _id: IdDto) {
     return this.roomService.getRoomDetails(_id)
   }
 
@@ -37,15 +38,15 @@ export class RoomsController {
     return this.roomService.createRoom(createRoomDto)
   }
 
-  @Put(':id')
+  @Put(':_id')
   put(
-    @Param('id') _id: string,
+    @Param('_id') _id: IdDto,
     @Body() createRoomDto: CreateRoomDto) {
     return this.roomService.editRoom({ ...createRoomDto, _id })
   }
 
-  @Delete(':id')
-  delete(@Param('id') _id: string) {
+  @Delete(':_id')
+  delete(@Param('_id') _id: IdDto) {
     return this.roomService.deleteRoom(_id)
   }
 

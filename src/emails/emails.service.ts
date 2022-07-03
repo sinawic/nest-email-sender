@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { SaveEmailDto, SaveFileDto } from './dto';
@@ -22,14 +22,22 @@ export class EmailsService {
   }
 
   createEmail = async (dto: SaveEmailDto) => {
-    return await new this.emailModel({
-      ...dto,
-      date_created: new Date(),
-    }).save()
+    try {
+      return await new this.emailModel({
+        ...dto,
+        date_created: new Date(),
+      }).save()
+    } catch (error) {
+      throw new HttpException({ error: error.message }, HttpStatus.BAD_REQUEST)
+    }
   }
 
   createAttachment = async (saveFileDto: SaveFileDto) => {
-    return await new this.attachmentModel(saveFileDto).save()
+    try {
+      return await new this.attachmentModel(saveFileDto).save()
+    } catch (error) {
+      throw new HttpException({ error: error.message }, HttpStatus.BAD_REQUEST)
+    }
   }
 
 
