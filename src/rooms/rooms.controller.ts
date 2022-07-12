@@ -14,7 +14,7 @@ import {
 import { BasicGuard } from '../auth/Guard';
 import { RoomsService } from './rooms.service';
 import { CreateRoomDto } from './dto';
-import { IdDto } from 'src/common/dto';
+import { IdDto } from '../common/dto';
 
 @UseGuards(BasicGuard)
 @Controller('admin/rooms')

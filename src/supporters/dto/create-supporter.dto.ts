@@ -2,7 +2,7 @@ import {
   IsNotEmpty,
   IsString,
 } from 'class-validator';
-import { IdDto } from 'src/common/dto';
+import { IdDto } from '../../common/dto';
 import { Type } from 'class-transformer';
 
 export class CreateSupporterDto {

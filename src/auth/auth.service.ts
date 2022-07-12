@@ -36,11 +36,7 @@ export class AuthService {
   async signToken({ _id, username, room }): Promise<{ access_token: string }> {
     const secret = process.env.ACCESS_TOKEN_SECRET;
     const token = await this.jwt.signAsync(
-      { _id, username, room },
-      {
-        expiresIn: '15m',
-        secret: secret,
-      },
+      { _id, username, room }
     );
 
     return {

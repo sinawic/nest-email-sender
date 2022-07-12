@@ -3,8 +3,7 @@ import {
   IsString,
 } from 'class-validator';
 import { Type } from 'class-transformer';
-import { ObjectId } from 'mongodb';
-import { IdDto } from 'src/common/dto';
+import { IdDto } from '../../common/dto';
 
 export class CreateRoomDto {
   @IsString()

@@ -14,7 +14,7 @@ import {
 import { BasicGuard } from '../auth/Guard';
 import { SupportersService } from './supporters.service';
 import { CreateSupporterDto } from './dto';
-import { IdDto } from 'src/common/dto';
+import { IdDto } from '../common/dto';
 
 @UseGuards(BasicGuard)
 @Controller('admin/supporters')

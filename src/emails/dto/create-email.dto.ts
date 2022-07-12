@@ -2,9 +2,7 @@ import {
   IsNotEmpty,
   IsString,
 } from 'class-validator';
-import { IsObjectId } from 'class-validator-mongo-object-id'
-import mongoose from 'mongoose';
-import { IdDto } from 'src/common/dto';
+import { IdDto } from '../../common/dto';
 import { Type } from 'class-transformer';
 
 export class CreateEmailDto {
